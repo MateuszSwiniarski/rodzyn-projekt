@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<body>
+<h2>Welcome on page where you can read my opinion about reading books</h2>
+
+<form th:action="@{/books}" th:object="${filter}" th:method="post">
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            <input class="form-control input-lg" type="text" th:field="*{parametr}" placeholder="enter parametr">
+        </div>
+        <div class="col-auto">
+            <select th:field="*{category}" class="form-control" id="exampleFormControlSelect1" placeholder="choose category">
+                <option value="all">all</option>
+                <option value="category">category</option>
+                <option value="binding">binding</option>
+                <option value="author">author</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </div>
+    </div>
+</form>
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Category</th>
+            <th scope="col">Picture</th>
+            <th scope="col">details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book:${books}">
+            <td class="align-middle" th:text="${book.getTitle()}"></td>
+            <td class="align-middle" th:text="${book.getAuthor()}"></td>
+            <td class="align-middle" th:text="${book.getCategory()}"></td>
+            <td>
+            <img th:src="${book.getUrl()}" alt="Mountain View" style="width:110px;height:150px">
+            </td>
+            <td class="align-middle"><a type="button" class="btn btn-primary" th:href="${'books/book/'+book.id}">details</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <a type="button" class="btn btn-secondary btn-lg btn-block" th:href="${'/books/add'}">Add new book</a>
+</div>
+
+</body>
+</html>
