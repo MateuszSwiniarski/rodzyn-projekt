@@ -25,13 +25,14 @@ public class BookController {
     public String getBooks(Model model){
         model.addAttribute("books", bookService.getBooksByFilter());
         model.addAttribute("filter", new Filter());
+        model.addAttribute("categories", bookService.getAllCategories());
         return "books";
     }
 
     @PostMapping
     public String getString(@ModelAttribute Filter filter){
         bookService.getFilter().setCategory(filter.getCategory());
-        bookService.getFilter().setParametr(filter.getParametr());
+//        bookService.getFilter().setParametr(filter.getParametr());
         System.out.println(filter);
         return "redirect:/books";
     }

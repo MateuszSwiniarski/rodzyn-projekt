@@ -21,13 +21,11 @@ public interface BookService {
 
     List<Book> findAllByCategory(String category);
 
-    List<Book> findAllByAuthor(String author);
-
-    List<Book> findAllByBinding(String binding);
-
     Filter getFilter();
 
     void setFilter(Filter filter);
 
     List<Book> getBooksByFilter();
+
+    List<String> getAllCategories();
 }

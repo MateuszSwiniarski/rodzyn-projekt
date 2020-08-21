@@ -4,11 +4,9 @@ import com.rodzyn.rodzynprojekt.model.Book;
 import com.rodzyn.rodzynprojekt.model.Filter;
 import com.rodzyn.rodzynprojekt.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,27 +52,6 @@ public class BookServiceImp implements BookService {
         return bookRepo.findAllByCategory(category);
     }
 
-    @Override
-    public List<Book> findAllByAuthor(String author) {
-        return bookRepo.findAllByAuthor(author);
-    }
-
-    @Override
-    public List<Book> findAllByBinding(String binding) {
-        return bookRepo.findAllByBinding(binding);
-    }
-
-    public void addBooks(){
-        bookRepo.deleteAll();
-        bookRepo.save(new Book("Ekonomia w jednej lekcji", "Henry Hazlitt,",
-                "hardcover", "not read yet",
-                224, "economy", "978-83-63250-07-2",
-                "http://www.mises.sklep.pl/68-large_default/ekonomia-w-jednej-lekcji-oprawa-twarda.jpg"));
-        bookRepo.save(new Book("Kot biznesik", "Arkadiusz Błażyca", "hardcover",
-                "simple book for children how to think to be richer and what to do to achive this dream",
-                84, "economy", "9788364599972", "https://kotbiznesik.pl/wp-content/uploads/2020/07/fizyk-KB.png"));
-    }
-
     private Filter filter = new Filter();
 
     @Override
@@ -89,30 +66,25 @@ public class BookServiceImp implements BookService {
 
     @Override
     public List<Book> getBooksByFilter(){
-        if(getFilter().getCategory()== null){
-            System.out.println("null");
+        if(getFilter().getCategory() == null){
             return bookRepo.findAll();
-        }else if(getFilter().getCategory().equals("category")){
-            System.out.println("drama");
-            return bookRepo.findAllByCategory("drama");
-        }else if(getFilter().getCategory().equals("author")){
-            System.out.println("author");
-            return bookRepo.findAllByAuthor(getFilter().toString());
-        }else if(getFilter().getCategory().equals("binding")){
-            System.out.println("binding");
-            return bookRepo.findAllByBinding(getFilter().toString());
-        }else {
-            System.out.println("all");
+        }else if(getFilter().getCategory().equals("all")){
             return bookRepo.findAll();
+        } else{
+            return bookRepo.findAllByCategory(getFilter().getCategory());
         }
     }
 
-    //    @EventListener(ApplicationReadyEvent.class)
-//    public void updateBook(){
-//        updateBook("Kot biznesik", "Arkadiusz Błażyca", "hardcover",
-//                84,
-//                "economy", "9788364599972",
-//                "https://kotbiznesik.pl/wp-content/uploads/2020/07/fizyk-KB.png",
-//                "simple book for children how to think to be richer and what to do to achive this dream",13);
-//    }
+    public List<String> getAllCategories(){
+        List<String> categoryList = new ArrayList<>();
+        categoryList.add("all");
+        List<Book> all = bookRepo.findAll();
+        for (int i = 0; i < all.size() ; i++) {
+            if(!categoryList.contains(all.get(i).getCategory())){
+                categoryList.add(all.get(i).getCategory());
+            }
+        }
+        categoryList.forEach(System.out::println);
+        return categoryList;
+    }
 }
