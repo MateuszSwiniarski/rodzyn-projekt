@@ -30,7 +30,7 @@ public class BookController {
     }
 
     @PostMapping
-    public String getString(@ModelAttribute Filter filter){
+    public String getFilter(@ModelAttribute Filter filter){
         bookService.getFilter().setCategory(filter.getCategory());
 //        bookService.getFilter().setParametr(filter.getParametr());
         System.out.println(filter);
@@ -79,5 +79,4 @@ public class BookController {
                 book.getUrl(), book.getDescription(), book.getId());
         return "redirect:/books";
     }
-
 }

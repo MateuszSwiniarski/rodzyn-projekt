@@ -22,6 +22,7 @@ public class Book {
     }
 
     public Book(String title, String author, String binding, String description, int numberPages, String category, String ISBN, String url) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.binding = binding;
