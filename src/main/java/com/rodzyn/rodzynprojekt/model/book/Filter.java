@@ -1,4 +1,4 @@
-package com.rodzyn.rodzynprojekt.model;
+package com.rodzyn.rodzynprojekt.model.book;
 
 public class Filter {
 

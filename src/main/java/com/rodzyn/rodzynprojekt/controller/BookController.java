@@ -1,8 +1,10 @@
 package com.rodzyn.rodzynprojekt.controller;
 
-import com.rodzyn.rodzynprojekt.model.Book;
-import com.rodzyn.rodzynprojekt.model.Filter;
+import com.rodzyn.rodzynprojekt.model.book.Book;
+import com.rodzyn.rodzynprojekt.model.book.Filter;
+import com.rodzyn.rodzynprojekt.model.nameday.Country;
 import com.rodzyn.rodzynprojekt.service.BookService;
+import com.rodzyn.rodzynprojekt.service.namedayService.NameDayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +17,12 @@ import java.util.Optional;
 public class BookController {
 
     private BookService bookService;
+    private NameDayService nameDayService;
 
     @Autowired
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, NameDayService nameDayService) {
         this.bookService = bookService;
+        this.nameDayService = nameDayService;
     }
 
     @GetMapping
@@ -26,14 +30,31 @@ public class BookController {
         model.addAttribute("books", bookService.getBooksByFilter());
         model.addAttribute("filter", new Filter());
         model.addAttribute("categories", bookService.getAllCategories());
+        model.addAttribute("countries", nameDayService.nameDayList().keySet());
+        model.addAttribute("country", new Country());
+        model.addAttribute("namesDay", nameDayService.getNameDays());
+        model.addAttribute("day", nameDayService.getData());
         return "books";
     }
 
     @PostMapping
-    public String getFilter(@ModelAttribute Filter filter){
+    public String getFilter(@ModelAttribute Filter filter, Country country){
         bookService.getFilter().setCategory(filter.getCategory());
-//        bookService.getFilter().setParametr(filter.getParametr());
-        System.out.println(filter);
+        nameDayService.getCountry().setCountry(country.getCountry());
+        System.out.println("country z controllera: " + country.getCountry());
+//        if(filter==null){
+//            bookService.getFilter().setCategory("all");
+//        }else{
+//            bookService.getFilter().setCategory(filter.getCategory());
+//        }
+//
+//        System.out.println("country z controllera: " + country.getCountry());
+//        if(country == null){
+//            nameDayService.getCountry().setCountry("pl");
+//        }else{
+//            System.out.println(country.getCountry());
+//            nameDayService.getCountry().setCountry(country.getCountry());
+//        }
         return "redirect:/books";
     }
 

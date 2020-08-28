@@ -1,6 +1,6 @@
 package com.rodzyn.rodzynprojekt.service;
 
-import com.rodzyn.rodzynprojekt.model.Book;
+import com.rodzyn.rodzynprojekt.model.book.Book;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

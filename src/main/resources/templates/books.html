@@ -13,17 +13,32 @@
 <h2>Welcome on page where you can read my opinion about reading books</h2>
 <br>
 
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2" th:text="${day}"></div>
+        <div class="col-sm-6" th:text="${namesDay}"/>
+
+        <form th:action="@{/books}" th:object="${country}" th:method="post">
+            <div class="d-flex justify-content-end">
+                <div class="col-auto">
+                    <select th:field="*{country}" class="form-control">
+                        <option th:each="country : ${countries}" th:value="${country}" th:text="${country}"></option>
+                        <button></button>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-2">confirm</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 <form th:action="@{/books}" th:object="${filter}" th:method="post">
     <div class="d-flex justify-content-end">
         <div class="col-auto">
             <select th:field="*{category}" class="form-control" id="exampleFormControlSelect1" placeholder="choose category">
-<!--                <option value="all">all</option>-->
-<!--                <option value="category">economic</option>-->
-<!--                <option value="binding">drama</option>-->
                 <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
             </select>
-<!--            <option th:each="color : ${colors}" th:value="*{color}" th:text="${color}"></option>-->
-<!--            <option th:each="i : ${#numbers.sequence(0, 100)}" th:value="${i}" th:text="${i}">-->
         </div>
         <div class="col-auto">
             <button type="submit" class="btn btn-primary mb-2">Sort by category</button>

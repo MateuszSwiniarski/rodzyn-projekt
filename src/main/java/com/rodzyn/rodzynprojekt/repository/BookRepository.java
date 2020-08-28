@@ -1,6 +1,6 @@
 package com.rodzyn.rodzynprojekt.repository;
 
-import com.rodzyn.rodzynprojekt.model.Book;
+import com.rodzyn.rodzynprojekt.model.book.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

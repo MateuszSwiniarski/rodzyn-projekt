@@ -1,7 +1,7 @@
 package com.rodzyn.rodzynprojekt.service;
 
-import com.rodzyn.rodzynprojekt.model.Book;
-import com.rodzyn.rodzynprojekt.model.Filter;
+import com.rodzyn.rodzynprojekt.model.book.Book;
+import com.rodzyn.rodzynprojekt.model.book.Filter;
 
 import java.util.List;
 import java.util.Optional;
